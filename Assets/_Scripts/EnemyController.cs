@@ -12,7 +12,7 @@ public class EnemyController : SteerableBehaviour, IShooter, IDamageable
 
     public void TakeDamage()
     {
-        throw new System.NotImplementedException();
+        Die();
     }
 
     public void Die()

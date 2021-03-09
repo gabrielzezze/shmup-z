@@ -5,18 +5,27 @@ using UnityEngine;
 public class PlayerController : SteerableBehaviour, IShooter, IDamageable
 {
     Animator animator;
+    private int lifes;
     private void Start() {
         animator = GetComponent<Animator>();
+        lifes = 10;
     }
 
     public GameObject bullet;
+    public Transform gun_1;
+
+    public float shot_delay = 0.1f;
+    private float _last_shot_timestamp = 0.0f; 
     public void Shoot() {
-        Instantiate(bullet, transform.position, Quaternion.identity);
+        if (Time.time - _last_shot_timestamp < shot_delay) return; 
+        
+        _last_shot_timestamp = Time.time;
+        Instantiate(bullet, gun_1.position, Quaternion.identity);
     }
 
-    public void TakeDamage()
-    {
-        throw new System.NotImplementedException();
+    public void TakeDamage() {
+        lifes--;
+        if (lifes <= 0) Die();
     }
 
     public void Die()
