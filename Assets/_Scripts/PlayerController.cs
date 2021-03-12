@@ -13,12 +13,13 @@ public class PlayerController : SteerableBehaviour, IShooter, IDamageable
 
     public GameObject bullet;
     public Transform gun_1;
+    public AudioClip shootSFX;
 
     public float shot_delay = 0.1f;
     private float _last_shot_timestamp = 0.0f; 
     public void Shoot() {
         if (Time.time - _last_shot_timestamp < shot_delay) return; 
-        
+        AudioManager.PlaySFX(shootSFX);
         _last_shot_timestamp = Time.time;
         Instantiate(bullet, gun_1.position, Quaternion.identity);
     }
